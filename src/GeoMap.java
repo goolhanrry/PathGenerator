@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 class GeoMap {
-    ArrayList<GeoPolyline> highlightPolyline, polyline = new ArrayList<>(); // 折线列表
-    ArrayList<Node> openList, closedList;                                   // 相邻结点与已检测结点有序列表
-    private ArrayList<GeoPoint> nodeList = new ArrayList<>();               // 所有结点列表
-    private float maxX, minX, maxY, minY, length;                           // 地图边界坐标, 路径总长度
+    ArrayList<GeoPolyline> polyline = new ArrayList<>(), highlightPolyline = new ArrayList<>(); // 折线列表
+    ArrayList<Node> openList, closedList;                                                       // 相邻结点与已检测结点有序列表
     float dX, dY, mX, mY;
+    private ArrayList<GeoPoint> nodeList = new ArrayList<>(); // 所有结点列表
+    private float maxX, minX, maxY, minY, length;             // 地图边界坐标, 路径总长度
     private int index = 1, fileIndex;
     private FileInputStream fs;
     private Scanner sr;

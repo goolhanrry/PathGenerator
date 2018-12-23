@@ -3,8 +3,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 class Dialog extends JDialog {
-    private int maxNode;
     private JTextField FNodeTextField, TNodeTextField;
+    private int maxNode;
 
     Dialog() {
         // 设置对话框属性
@@ -109,7 +109,7 @@ class Dialog extends JDialog {
         // 清除结点列表
         PathGenerator.map.openList = new ArrayList<>();
         PathGenerator.map.closedList = new ArrayList<>();
-        PathGenerator.map.highlightPolyline = new ArrayList<>();
+        PathGenerator.map.highlightPolyline.clear();
 
         // 执行最短路径分析
         PathGenerator.map.searchPath(FNode, TNode);

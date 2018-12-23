@@ -1,7 +1,8 @@
 class GeoPolyline {
-    int index, FNode, TNode, size, count = 0;
+    int index, FNode, TNode, size;
     float length = 0; // 折线当前长度
     GeoPoint pts[];   // 折线包含的点集
+    private int count;
 
     GeoPolyline(int index, int FNode, int TNode, int size) {
         this.index = index;

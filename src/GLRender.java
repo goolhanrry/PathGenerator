@@ -20,9 +20,8 @@ class GLRender implements GLEventListener, MouseListener, MouseMotionListener, M
         // 设置绘图模式
         gl.glMatrixMode(GL2.GL_MODELVIEW);
 
-        // 设置画笔样式
+        // 设置画笔宽度
         gl.glLineWidth(2f);
-        gl.glColor3f(1, 0.8f, 0);
     }
 
     @Override
@@ -42,6 +41,9 @@ class GLRender implements GLEventListener, MouseListener, MouseMotionListener, M
         // 清空画布
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 
+        // 设置画笔颜色
+        gl.glColor3f(1, 0.8f, 0);
+
         // 刷新相机视角
         gl.glLoadIdentity();
         gl.glTranslatef(offsetX + newOffsetX, offsetY + newOffsetY, 0);
@@ -54,21 +56,43 @@ class GLRender implements GLEventListener, MouseListener, MouseMotionListener, M
         // 绘制图像
         if (drawable.getSurfaceWidth() * PathGenerator.map.dY >= drawable.getSurfaceHeight() * PathGenerator.map.dX) {
             for (GeoPolyline item : PathGenerator.map.polyline) {
-                gl.glBegin(GL.GL_LINES);
-                for (int i = 0; i < item.size; i++) {
-                    gl.glVertex2f(2 * scale * (item.pts[i].x - PathGenerator.map.mX) * canvasHeight / (PathGenerator.map.dY * canvasWidth), 2 * scale * (item.pts[i].y - PathGenerator.map.mY) / PathGenerator.map.dY);
+                drawPolylineX(gl, item);
+            }
+
+            if (!PathGenerator.map.highlightPolyline.isEmpty()) {
+                gl.glColor3f(0, 1, 0.78f);
+                for (GeoPolyline item : PathGenerator.map.highlightPolyline) {
+                    drawPolylineX(gl, item);
                 }
-                gl.glEnd();
             }
         } else {
             for (GeoPolyline item : PathGenerator.map.polyline) {
-                gl.glBegin(GL.GL_LINES);
-                for (int i = 0; i < item.size; i++) {
-                    gl.glVertex2f(2 * scale * (item.pts[i].x - PathGenerator.map.mX) / PathGenerator.map.dX, 2 * scale * (item.pts[i].y - PathGenerator.map.mY) * canvasWidth / (PathGenerator.map.dX * canvasHeight));
+                drawPolylineY(gl, item);
+            }
+
+            if (!PathGenerator.map.highlightPolyline.isEmpty()) {
+                gl.glColor3f(0, 1, 0.78f);
+                for (GeoPolyline item : PathGenerator.map.highlightPolyline) {
+                    drawPolylineY(gl, item);
                 }
-                gl.glEnd();
             }
         }
+    }
+
+    private void drawPolylineX(GL2 gl, GeoPolyline item) {
+        gl.glBegin(GL.GL_LINES);
+        for (int i = 0; i < item.size; i++) {
+            gl.glVertex2f(2 * scale * (item.pts[i].x - PathGenerator.map.mX) * canvasHeight / (PathGenerator.map.dY * canvasWidth), 2 * scale * (item.pts[i].y - PathGenerator.map.mY) / PathGenerator.map.dY);
+        }
+        gl.glEnd();
+    }
+
+    private void drawPolylineY(GL2 gl, GeoPolyline item) {
+        gl.glBegin(GL.GL_LINES);
+        for (int i = 0; i < item.size; i++) {
+            gl.glVertex2f(2 * scale * (item.pts[i].x - PathGenerator.map.mX) / PathGenerator.map.dX, 2 * scale * (item.pts[i].y - PathGenerator.map.mY) * canvasWidth / (PathGenerator.map.dX * canvasHeight));
+        }
+        gl.glEnd();
     }
 
     @Override

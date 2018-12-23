@@ -1,6 +1,7 @@
 class Node {
-    int id, index, polylineId; // 结点 ID, 结点索引, 折线 ID
-    float F;                   // 结点 F 值
+    int id, index; // 结点 ID, 结点索引, 折线 ID
+    float F;       // 结点 F 值
+    private int polylineId;
 
     Node(int id, int index) {
         this.id = id;
@@ -23,7 +24,6 @@ class Node {
             int id = (Integer) obj;
             return this.id == id;
         }
-
         return false;
     }
 }

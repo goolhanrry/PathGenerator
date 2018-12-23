@@ -10,8 +10,8 @@ import com.jogamp.opengl.awt.GLCanvas;
 
 class MainWindow extends JFrame {
     static GLCanvas mapCanvas;                  // 地图绘制组件
-    private GLRender glRender = new GLRender(); // 绘制组件监听器
     JLabel pathLabel = new JLabel();            // 路径分析结果
+    private GLRender glRender = new GLRender(); // 绘制组件监听器
 
     MainWindow() {
         // 设置窗体属性
