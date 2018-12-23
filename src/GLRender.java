@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.awt.event.*;
 
 import com.jogamp.opengl.GL;
@@ -7,7 +8,7 @@ import com.jogamp.opengl.GLEventListener;
 
 class GLRender implements GLEventListener, MouseListener, MouseMotionListener, MouseWheelListener {
     private int canvasWidth, canvasHeight;
-    private float mouseX, mouseY, offsetX = 0, offsetY = 0, newOffsetX = 0, newOffsetY = 0, scale = 0.9f;
+    private float mouseX, mouseY, offsetX, offsetY, newOffsetX, newOffsetY, scale;
 
     @Override
     public void init(GLAutoDrawable drawable) {
@@ -42,8 +43,8 @@ class GLRender implements GLEventListener, MouseListener, MouseMotionListener, M
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT | GL2.GL_DEPTH_BUFFER_BIT);
 
         // 刷新相机视角
-        gl.glTranslatef(offsetX + newOffsetX, offsetY + newOffsetY, 0);
         gl.glLoadIdentity();
+        gl.glTranslatef(offsetX + newOffsetX, offsetY + newOffsetY, 0);
 
         // 若无地图对象则返回
         if (PathGenerator.map == null) {
@@ -79,6 +80,9 @@ class GLRender implements GLEventListener, MouseListener, MouseMotionListener, M
     public void mousePressed(MouseEvent e) {
         // 判断是否按下左键
         if (e.getButton() == MouseEvent.BUTTON1) {
+            // 改变光标样式
+            PathGenerator.mainWindow.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
             // 初始化鼠标位置
             mouseX = e.getX();
             mouseY = e.getY();
@@ -87,6 +91,9 @@ class GLRender implements GLEventListener, MouseListener, MouseMotionListener, M
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        // 改变光标样式
+        PathGenerator.mainWindow.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
         // 固化图像偏移量
         offsetX += newOffsetX;
         offsetY += newOffsetY;
@@ -121,6 +128,16 @@ class GLRender implements GLEventListener, MouseListener, MouseMotionListener, M
 
         // 重绘图像
         MainWindow.mapCanvas.display();
+    }
+
+    void resetOffset() {
+        offsetX = 0;
+        offsetY = 0;
+
+        newOffsetX = 0;
+        newOffsetY = 0;
+
+        scale = 0.9f;
     }
 
     public void mouseEntered(MouseEvent e) {

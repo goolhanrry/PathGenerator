@@ -1,8 +1,9 @@
 class PathGenerator {
     static GeoMap map;
+    static MainWindow mainWindow;
 
     public static void main(String[] args) {
-        MainWindow w = new MainWindow();
-        w.setVisible(true);
+        mainWindow = new MainWindow();
+        mainWindow.setVisible(true);
     }
 }

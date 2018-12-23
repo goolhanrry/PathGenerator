@@ -9,7 +9,9 @@ import com.jogamp.opengl.GLProfile;
 import com.jogamp.opengl.awt.GLCanvas;
 
 class MainWindow extends JFrame {
-    static GLCanvas mapCanvas;
+    static GLCanvas mapCanvas;                  // 地图绘制组件
+    private GLRender glRender = new GLRender(); // 绘制组件监听器
+    JLabel pathLabel = new JLabel();            // 路径分析结果
 
     MainWindow() {
         // 设置窗体属性
@@ -49,11 +51,11 @@ class MainWindow extends JFrame {
         this.add(analyzeButton);
 
         // 添加标签组件
-        JLabel pathLabel = new JLabel();
+        pathLabel.setHorizontalAlignment(JLabel.RIGHT);
         gbc.gridy = 0;
         gbc.gridwidth = 6;
         gbc.weightx = 18;
-        gbc.insets = new Insets(5, 4, 1, 0);
+        gbc.insets = new Insets(5, 4, 1, 10);
         gbl.setConstraints(pathLabel, gbc);
         this.add(pathLabel);
 
@@ -63,7 +65,6 @@ class MainWindow extends JFrame {
         mapCanvas = new GLCanvas(glCaps);
 
         // 设置监听器
-        GLRender glRender = new GLRender();
         mapCanvas.addGLEventListener(glRender);
         mapCanvas.addMouseListener(glRender);
         mapCanvas.addMouseMotionListener(glRender);
@@ -102,10 +103,15 @@ class MainWindow extends JFrame {
             // 读取文件并解码
             PathGenerator.map = new GeoMap();
             if (PathGenerator.map.loadMap(fileName)) {
-                // 初始化绘图数据
-                PathGenerator.map.init();
+                // 更新标题栏文字
+                this.setTitle(fc.getSelectedFile().getName() + " - Path Generator");
 
-                // 绘制地图
+                // 清除路径
+                pathLabel.setText("");
+
+                // 渲染地图
+                PathGenerator.map.init();
+                glRender.resetOffset();
                 mapCanvas.display();
             } else {
                 // 清空已读取的地图，内存交给虚拟机处理
@@ -116,7 +122,7 @@ class MainWindow extends JFrame {
 
     private void onAnalyzeButtonClicked() {
         // 若未打开地图文件则弹窗提示
-        if (PathGenerator.map != null) {
+        if (PathGenerator.map == null) {
             JOptionPane.showMessageDialog(null, "Please open a map first", "Notice", JOptionPane.INFORMATION_MESSAGE);
             return;
         }

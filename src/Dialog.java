@@ -1,5 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 class Dialog extends JDialog {
     private int maxNode;
@@ -23,7 +24,7 @@ class Dialog extends JDialog {
         gbc.fill = GridBagConstraints.BOTH;
 
         // 获取节点范围
-        //maxNode = PathGenerator.map.polyline.size();
+        maxNode = PathGenerator.map.polyline.size();
 
         // 添加提示标签
         JLabel rangeLabel = new JLabel("Please input node ID (1 ~ " + maxNode + ")", JLabel.CENTER);
@@ -104,5 +105,15 @@ class Dialog extends JDialog {
                 return;
             }
         }
+
+        // 清除结点列表
+        PathGenerator.map.openList = new ArrayList<>();
+        PathGenerator.map.closedList = new ArrayList<>();
+        PathGenerator.map.highlightPolyline = new ArrayList<>();
+
+        // 执行最短路径分析
+        PathGenerator.map.searchPath(FNode, TNode);
+
+        dispose();
     }
 }
