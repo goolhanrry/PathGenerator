@@ -13,6 +13,9 @@ class MainWindow extends JFrame {
     JLabel pathLabel = new JLabel();            // 路径分析结果
     private GLRender glRender = new GLRender(); // 绘制组件监听器
 
+    /* ***********************************************
+     *  @brief MainWindow 类的构造函数
+     * ***********************************************/
     MainWindow() {
         // 设置窗体属性
         this.setTitle("Path Generator");
@@ -80,6 +83,9 @@ class MainWindow extends JFrame {
         this.add(mapCanvas);
     }
 
+    /* ***********************************************
+     *  @brief Open 按钮框点击事件处理函数
+     * ***********************************************/
     private void onOpenFileButtonClicked() {
         // 初始化文件选择对话框
         JFileChooser fc = new JFileChooser(new File("."));
@@ -120,6 +126,9 @@ class MainWindow extends JFrame {
         }
     }
 
+    /* ***********************************************
+     *  @brief Analyze 按钮框点击事件处理函数
+     * ***********************************************/
     private void onAnalyzeButtonClicked() {
         // 若未打开地图文件则弹窗提示
         if (PathGenerator.map == null) {

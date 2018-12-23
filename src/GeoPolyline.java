@@ -4,6 +4,13 @@ class GeoPolyline {
     GeoPoint pts[];   // 折线包含的点集
     private int count;
 
+    /* ***********************************************
+     *  @brief GeoPolyline 类的构造函数
+     *  @param index   折线编号
+     *  @param FNode   起始结点
+     *  @param TNode   目标结点
+     *  @param size    折线包含点的数量
+     * ***********************************************/
     GeoPolyline(int index, int FNode, int TNode, int size) {
         this.index = index;
         this.FNode = FNode;
@@ -12,6 +19,11 @@ class GeoPolyline {
         pts = new GeoPoint[size];
     }
 
+    /* ***********************************************
+     *  @brief 添加点要素并更新折线长度
+     *  @param x   横坐标
+     *  @param y   纵坐标
+     * ***********************************************/
     void addPoint(float x, float y) {
         pts[count] = new GeoPoint(x, y);
         count++;

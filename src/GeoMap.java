@@ -13,6 +13,13 @@ class GeoMap {
     private FileInputStream fs;
     private Scanner sr;
 
+    /* ***********************************************
+     *  @brief 从 e00 文件中读取地图数据
+     *  @param fileName 待读取文件的路径
+     *  @return
+     *      -true   读取成功
+     *      -false  读取失败
+     * ***********************************************/
     boolean loadMap(String fileName) {
         String buffer;
         int index, FNode, TNode, LPoly, RPoly, size;
@@ -89,6 +96,11 @@ class GeoMap {
         }
     }
 
+    /* ***********************************************
+     *  @brief 切换待读取的文件以继续读取地图数据
+     *  @param fileName     原文件路径
+     *  @param fileIndex    当前文件索引
+     * ***********************************************/
     private void switchFile(String fileName, int fileIndex) throws Exception {
         // 生成新文件路径
         String nextFileName = fileName.substring(0, fileName.length() - (fileIndex >= 10 ? 2 : 1)) + fileIndex;
@@ -105,7 +117,9 @@ class GeoMap {
         }
     }
 
-    // 绘图数据初始化
+    /* ***********************************************
+     *  @brief 绘图数据初始化
+     * ***********************************************/
     void init() {
         dX = maxX - minX;
         dY = maxY - minY;
@@ -113,6 +127,11 @@ class GeoMap {
         mY = dY / 2 + minY;
     }
 
+    /* ***********************************************
+     *  @brief 使用A*算法进行路径分析
+     *  @param FNode   起始结点
+     *  @param TNode   目标结点
+     * ***********************************************/
     void searchPath(int FNode, int TNode) {
         // 添加起始结点
         Node fNode = new Node(FNode, 0);
@@ -154,6 +173,11 @@ class GeoMap {
         }
     }
 
+    /* ***********************************************
+     *  @brief 检索当前结点的相邻结点
+     *  @param TNode   目标结点
+     *  @param index   结点索引
+     * ***********************************************/
     private void getAdjacentNode(int TNode) {
         float tx = nodeList.get(nodeList.indexOf(new GeoPoint(TNode))).x;
         float ty = nodeList.get(nodeList.indexOf(new GeoPoint(TNode))).y;
@@ -190,6 +214,9 @@ class GeoMap {
         }
     }
 
+    /* ***********************************************
+     *  @brief 获取最优结点并移动一步
+     * ***********************************************/
     private void getNearestNode() {
         // 获取最优结点
         Node nextNode = new Node(0, index);
@@ -218,6 +245,9 @@ class GeoMap {
         index++;
     }
 
+    /* ***********************************************
+     *  @brief 生成路径向量
+     * ***********************************************/
     private void generatePath() {
         ArrayList<GeoPolyline> path = new ArrayList<>();
         GeoPolyline shortestPath;

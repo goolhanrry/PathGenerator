@@ -96,11 +96,6 @@ class GLRender implements GLEventListener, MouseListener, MouseMotionListener, M
     }
 
     @Override
-    public void dispose(GLAutoDrawable drawable) {
-        // method body
-    }
-
-    @Override
     public void mousePressed(MouseEvent e) {
         // 判断是否按下左键
         if (e.getButton() == MouseEvent.BUTTON1) {
@@ -164,15 +159,23 @@ class GLRender implements GLEventListener, MouseListener, MouseMotionListener, M
         scale = 0.9f;
     }
 
+    public void dispose(GLAutoDrawable drawable) {
+        // do nothing
+    }
+
     public void mouseEntered(MouseEvent e) {
+        // do nothing
     }
 
     public void mouseExited(MouseEvent e) {
+        // do nothing
     }
 
     public void mouseClicked(MouseEvent e) {
+        // do nothing
     }
 
     public void mouseMoved(MouseEvent e) {
+        // do nothing
     }
 }

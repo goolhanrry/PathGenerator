@@ -3,11 +3,23 @@ class Node {
     float F;       // 结点 F 值
     private int polylineId;
 
+    /* ***********************************************
+     *  @brief Node 类的构造函数
+     *  @param id      结点ID
+     *  @param index   结点编号
+     * ***********************************************/
     Node(int id, int index) {
         this.id = id;
         this.index = index;
     }
 
+    /* ***********************************************
+     *  @brief Node 类的构造函数
+     *  @param id           结点ID
+     *  @param index        结点编号
+     *  @param polylineId   折线ID
+     *  @param F            F值
+     * ***********************************************/
     Node(int id, int index, int polylineId, float F) {
         this.id = id;
         this.index = index;

@@ -6,6 +6,9 @@ class Dialog extends JDialog {
     private JTextField FNodeTextField, TNodeTextField;
     private int maxNode;
 
+    /* ***********************************************
+     *  @brief Dialog 类的构造函数
+     * ***********************************************/
     Dialog() {
         // 设置对话框属性
         this.setTitle("Path Analysis");
@@ -82,6 +85,9 @@ class Dialog extends JDialog {
         this.add(buttonCancel);
     }
 
+    /* ***********************************************
+     *  @brief OK 按钮框点击事件处理函数
+     * ***********************************************/
     private void onOK() {
         int FNode, TNode;
 
